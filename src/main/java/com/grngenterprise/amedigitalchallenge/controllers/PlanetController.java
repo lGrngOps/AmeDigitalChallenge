@@ -25,18 +25,18 @@ public class PlanetController {
         return planetService.findAllPlanets();
     }
 
-    @DeleteMapping(value = "/delete/{id}")
-    public void deletePlanets(@PathVariable Long id){
+    @GetMapping(value = "/delete/{id}")
+    public void deletePlanets(@PathVariable("id") Long id){
         planetService.deletePlanets(id);
     }
 
-    @GetMapping(value = "/search/{nome}")
-    public List<Planets> searchNome (@RequestParam("nome")String nome){
+    @GetMapping(value = "/find/{nome}")
+    public List<Planets> searchNome (@PathVariable("nome")String nome){
         return planetService.searchNome(nome);
     }
 
     @GetMapping(value = "/search/{id}")
-    public List<Planets> searchId (@RequestParam("id")Long id){
+    public List<Planets> searchId (@PathVariable("id")Long id){
         return planetService.searchId(id);
     }
 

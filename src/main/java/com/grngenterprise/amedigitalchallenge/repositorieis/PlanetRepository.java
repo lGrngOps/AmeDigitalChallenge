@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PlanetRepository extends JpaRepository<Planets, Long> {
 
-    @Query(value = "select p from Planets p where id like %?1%")
+    @Query(value = "select p from Planets p where p.id = :id")
     List<Planets> searchId(Long id);
 
     @Query(value = "select p from Planets p where nome like %?1%")
