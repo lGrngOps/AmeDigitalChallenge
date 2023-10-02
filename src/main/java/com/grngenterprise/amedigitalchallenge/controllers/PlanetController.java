@@ -1,8 +1,10 @@
 package com.grngenterprise.amedigitalchallenge.controllers;
 
 import com.grngenterprise.amedigitalchallenge.entities.Planets;
+import com.grngenterprise.amedigitalchallenge.models.PlanetRequest;
 import com.grngenterprise.amedigitalchallenge.services.PlanetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,14 +32,19 @@ public class PlanetController {
         planetService.deletePlanets(id);
     }
 
-    @GetMapping(value = "/find/{nome}")
-    public List<Planets> searchNome (@PathVariable("nome")String nome){
-        return planetService.searchNome(nome);
+    @GetMapping(value = "/find/{name}")
+    public List<Planets> searchNome (@PathVariable("name")String name){
+        return planetService.searchName(name);
     }
 
     @GetMapping(value = "/search/{id}")
     public List<Planets> searchId (@PathVariable("id")Long id){
         return planetService.searchId(id);
+    }
+
+    @GetMapping(value = "/consult")
+    public ResponseEntity consultAPI (@RequestBody PlanetRequest planetRequest){
+        return ResponseEntity.ok(planetService.consultAPI(planetRequest));
     }
 
 }

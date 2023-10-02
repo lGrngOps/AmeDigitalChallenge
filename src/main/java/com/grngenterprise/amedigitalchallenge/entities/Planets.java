@@ -14,9 +14,9 @@ public class Planets {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
-    private String clima;
-    private String terreno;
-    private Integer aparicoes;
+    private String name;
+    private String climate;
+    private String terrain;
+    private Integer films;
 
 }

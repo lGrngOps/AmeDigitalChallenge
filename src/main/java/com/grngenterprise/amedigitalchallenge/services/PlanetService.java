@@ -1,18 +1,24 @@
 package com.grngenterprise.amedigitalchallenge.services;
 
 import com.grngenterprise.amedigitalchallenge.entities.Planets;
+import com.grngenterprise.amedigitalchallenge.feign.PlanetFeign;
+import com.grngenterprise.amedigitalchallenge.models.PlanetRequest;
+import com.grngenterprise.amedigitalchallenge.models.PlanetResponse;
 import com.grngenterprise.amedigitalchallenge.repositorieis.PlanetRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class PlanetService {
 
     @Autowired
     private PlanetRepository planetRepository;
+
+    private PlanetFeign planetFeign;
 
     public Planets createPlanet(Planets planets){
         return this.planetRepository.save(planets);
@@ -28,8 +34,8 @@ public class PlanetService {
         return list;
     }
 
-    public List<Planets> searchNome (String nome){
-        List<Planets> list = planetRepository.searchNome(nome);
+    public List<Planets> searchName (String name){
+        List<Planets> list = planetRepository.searchName(name);
         return list;
     }
 
@@ -41,11 +47,7 @@ public class PlanetService {
             throw new IllegalArgumentException("Planeta não localizado");
     }
 
-
-
-
-
-
-
-
+    public PlanetResponse consultAPI (PlanetRequest planetRequest){
+        return planetFeign.searchPlanetsDetail(planetRequest.getName());
+    }
 }
