@@ -6,6 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
+import java.util.ArrayList;
+
 
 @Entity
 @Data
@@ -17,6 +19,6 @@ public class Planets {
     private String name;
     private String climate;
     private String terrain;
-    private Integer films;
+    private ArrayList films;
 
 }

@@ -6,9 +6,9 @@ import com.grngenterprise.amedigitalchallenge.services.PlanetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
-
 @RestController
 @RequestMapping(value = "/")
 
@@ -28,9 +28,7 @@ public class PlanetController {
     }
 
     @GetMapping(value = "/delete/{id}")
-    public void deletePlanets(@PathVariable("id") Long id){
-        planetService.deletePlanets(id);
-    }
+    public void deletePlanets(@PathVariable("id") Long id){ planetService.deletePlanets(id);    }
 
     @GetMapping(value = "/find/{name}")
     public List<Planets> searchNome (@PathVariable("name")String name){
@@ -42,9 +40,10 @@ public class PlanetController {
         return planetService.searchId(id);
     }
 
-    @GetMapping(value = "/consult")
-    public ResponseEntity consultAPI (@RequestBody PlanetRequest planetRequest){
-        return ResponseEntity.ok(planetService.consultAPI(planetRequest));
+    @GetMapping("/api/{nome}")
+    public PlanetRequest consultAPI (@PathVariable("nome") String nome){
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<PlanetRequest> response = restTemplate.getForEntity(String.format("https://swapi.dev/api/planets/%s", nome), PlanetRequest.class);
+        return response.getBody();
     }
-
 }
