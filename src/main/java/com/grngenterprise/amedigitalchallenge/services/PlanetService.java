@@ -1,6 +1,8 @@
 package com.grngenterprise.amedigitalchallenge.services;
 
 import com.grngenterprise.amedigitalchallenge.entities.Planets;
+import com.grngenterprise.amedigitalchallenge.models.PlanetDTO;
+import com.grngenterprise.amedigitalchallenge.models.PlanetRequest;
 import com.grngenterprise.amedigitalchallenge.repositorieis.PlanetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,8 +14,27 @@ public class PlanetService {
     @Autowired
     private PlanetRepository planetRepository;
 
-    public Planets createPlanet(Planets planets){
-        return this.planetRepository.save(planets);
+    public PlanetRequest consultAPI(PlanetRequest planetRequest){
+        planetRequest.setAp(planetRequest.getFilms().size());
+        planetRequest.setFilms(planetRequest.getFilms());
+        planetRequest.setName(planetRequest.getName());
+        return planetRequest;
+    }
+
+    public PlanetDTO createPlanet(PlanetDTO planetDTO){
+
+        Planets planets = new Planets();
+
+        planets.setName(planetDTO.getName());
+        planets.setClimate(planetDTO.getClimate());
+        planets.setTerrain(planetDTO.getTerrain());
+
+        //PlanetRequest planetRequest = new PlanetRequest();
+        //planets.setAppears(planetRequest.getAp());
+        //planetDTO.setAppears(planetRequest.getAp());
+
+        planetRepository.save(planets);
+        return planetDTO;
     }
 
     public List<Planets> findAllPlanets(){

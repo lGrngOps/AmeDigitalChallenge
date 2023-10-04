@@ -2,13 +2,12 @@ package com.grngenterprise.amedigitalchallenge.models;
 
 import lombok.Data;
 
-import java.util.ArrayList;
-
 @Data
-public class PlanetRequest {
+public class PlanetDTO {
 
     private String name;
-    private ArrayList films;
-    private Integer ap;
+    private String climate;
+    private String terrain;
+    //private Integer appears;
 
 }

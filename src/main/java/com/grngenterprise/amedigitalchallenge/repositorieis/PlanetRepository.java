@@ -13,5 +13,4 @@ public interface PlanetRepository extends JpaRepository<Planets, Long> {
 
     @Query(value = "select p from Planets p where name like %?1%")
     List<Planets> searchName(String name);
-
 }
