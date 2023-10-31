@@ -5,8 +5,6 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Optional;
-
 @FeignClient(
         url = "https://swapi.dev/api/planets",
         name = "swapi")
@@ -14,9 +12,9 @@ import java.util.Optional;
 public interface PlanetFeign {
 
     @GetMapping
-    Optional<APIResponse> findAll();
+    APIResponse findAll();
 
     @GetMapping("/?search={planet}")
-    Optional<APIResponse> findPlanetByName(@RequestParam(name = "planet")String planet);
+    APIResponse findPlanetByName(@RequestParam(name = "planet")String planet);
 
 }

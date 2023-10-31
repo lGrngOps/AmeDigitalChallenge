@@ -3,12 +3,14 @@ package com.grngenterprise.amedigitalchallenge.services;
 import com.grngenterprise.amedigitalchallenge.entities.Planets;
 import com.grngenterprise.amedigitalchallenge.feign.PlanetFeign;
 import com.grngenterprise.amedigitalchallenge.models.APIResponse;
+import com.grngenterprise.amedigitalchallenge.models.PlanetDTO;
 import com.grngenterprise.amedigitalchallenge.models.PlanetResponse;
 import com.grngenterprise.amedigitalchallenge.repositorieis.PlanetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class PlanetService {
 
@@ -19,49 +21,27 @@ public class PlanetService {
     private PlanetFeign planetFeign;
 
     public APIResponse findAll() {
-        try {
-            return planetFeign
-                    .findAll()
-                    .orElse(APIResponse.createEmptyResult());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return APIResponse.createEmptyResult();
-        }
+            return planetFeign.findAll();
     }
 
     public APIResponse findPlanetByName(String planet){
-        try{
-            return planetFeign
-                    .findPlanetByName(planet)
-                    .orElse(APIResponse.createEmptyResult());
-        } catch (Exception ex){
-            ex.printStackTrace();
-            return APIResponse.createEmptyResult();
-        }
+            return planetFeign.findPlanetByName(planet);
     }
 
-    public PlanetResponse createPlanet(PlanetResponse planetResponse){
+    public PlanetDTO createPlanet(PlanetDTO planetDTO){
 
         Planets planets = new Planets();
 
-        planets.setName(planetResponse.getName());
-        planets.setClimate(planetResponse.getClimate());
-        planets.setTerrain(planetResponse.getTerrain());
+        planets.setName(planetDTO.getName());
+        planets.setClimate(planetDTO.getClimate());
+        planets.setTerrain(planetDTO.getTerrain());
 
-        //PlanetRequest planetRequest = new PlanetRequest();
-        //planets.setAppears(planetRequest.getAp());
-        //planetResponse.setAppears(planetRequest.getAp());
+        //planetFeign.findPlanetByName(planetDTO.getName());
 
         planetRepository.save(planets);
-        return planetResponse;
-    }
 
-    //public PlanetRequest consultAPI(PlanetRequest planetRequest){
-    //    planetRequest.setAp(planetRequest.getFilms().size());
-    //    planetRequest.setFilms(planetRequest.getFilms());
-    //    planetRequest.setName(planetRequest.getName());
-    //    return planetRequest;
-    //}
+        return planetDTO;
+    }
 
     public List<Planets> findAllPlanets(){
         List<Planets> list = planetRepository.findAll();
@@ -85,4 +65,12 @@ public class PlanetService {
         else
             throw new IllegalArgumentException("Planeta não localizado");
     }
+
+    // API Consumida via Rest Template
+    //public PlanetRequest consultAPI(PlanetRequest planetRequest){
+    //    planetRequest.setAp(planetRequest.getFilms().size());
+    //    planetRequest.setFilms(planetRequest.getFilms());
+    //    planetRequest.setName(planetRequest.getName());
+    //    return planetRequest;
+    //}
 }

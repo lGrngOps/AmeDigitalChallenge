@@ -2,13 +2,14 @@ package com.grngenterprise.amedigitalchallenge.controllers;
 
 import com.grngenterprise.amedigitalchallenge.entities.Planets;
 import com.grngenterprise.amedigitalchallenge.feign.PlanetFeign;
-import com.grngenterprise.amedigitalchallenge.models.PlanetResponse;
+import com.grngenterprise.amedigitalchallenge.models.PlanetDTO;
 import com.grngenterprise.amedigitalchallenge.models.APIResponse;
 import com.grngenterprise.amedigitalchallenge.services.PlanetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RestController
 @RequestMapping(value = "/")
 
@@ -20,7 +21,7 @@ public class PlanetController {
     @Autowired
     private PlanetFeign planetFeign;
 
-    @GetMapping("/api")
+    @GetMapping(value = "api")
     public APIResponse findAll(){
         return planetService.findAll();
     }
@@ -30,32 +31,32 @@ public class PlanetController {
         return planetService.findPlanetByName(planet);
     }
 
-    @PostMapping(value = "/create")
-    public PlanetResponse createPlanets (@RequestBody PlanetResponse planetResponse){
-        return planetService.createPlanet(planetResponse);
+    @PostMapping(value = "create")
+    public PlanetDTO createPlanets (@RequestBody PlanetDTO planetDTO){
+        return planetService.createPlanet(planetDTO);
     }
 
-    @GetMapping(value = "/planets")
+    @GetMapping(value = "planets")
     public List<Planets> findAllPlanets(){
         return planetService.findAllPlanets();
     }
 
-    @GetMapping(value = "/delete/{id}")
+    @GetMapping(value = "planets/delete/{id}")
     public void deletePlanets(@PathVariable("id") Long id){
         planetService.deletePlanets(id);
     }
 
-    @GetMapping(value = "/planets/{name}")
+    @GetMapping(value = "planets/name/{name}")
     public List<Planets> searchNome (@PathVariable("name")String name){
         return planetService.searchName(name);
     }
 
-    @GetMapping(value = "/planets/{id}")
+    @GetMapping(value = "planets/id/{id}")
     public List<Planets> searchId (@PathVariable("id")Long id){
         return planetService.searchId(id);
     }
 
-    // API Consumida via RestTemplate
+    // API Consumida via Rest Template
     //@GetMapping("/api")
     //public PlanetRequest consultAPI (){
     //    RestTemplate restTemplate = new RestTemplate();
@@ -63,5 +64,4 @@ public class PlanetController {
     //    return planetService.consultAPI(response.getBody());
     //    //return response.getBody();
     //}
-
 }

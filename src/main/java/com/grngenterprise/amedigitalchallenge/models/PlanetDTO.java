@@ -1,7 +1,7 @@
 package com.grngenterprise.amedigitalchallenge.models;
 
-import lombok.Data;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
@@ -9,11 +9,11 @@ import java.util.ArrayList;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PlanetResponse {
+public class PlanetDTO {
 
     private String name;
     private String climate;
     private String terrain;
-    private ArrayList films;
+    private Integer appears;
 
 }
