@@ -4,7 +4,6 @@ import com.grngenterprise.amedigitalchallenge.entities.Planets;
 import com.grngenterprise.amedigitalchallenge.feign.PlanetFeign;
 import com.grngenterprise.amedigitalchallenge.models.APIResponse;
 import com.grngenterprise.amedigitalchallenge.models.PlanetDTO;
-import com.grngenterprise.amedigitalchallenge.models.PlanetResponse;
 import com.grngenterprise.amedigitalchallenge.repositorieis.PlanetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,15 +30,23 @@ public class PlanetService {
     public PlanetDTO createPlanet(PlanetDTO planetDTO){
 
         Planets planets = new Planets();
-
         planets.setName(planetDTO.getName());
         planets.setClimate(planetDTO.getClimate());
         planets.setTerrain(planetDTO.getTerrain());
 
-        //planetFeign.findPlanetByName(planetDTO.getName());
+        String planetcadastro = planetDTO.getName().toUpperCase();
+        APIResponse planetresp = planetFeign.findPlanetByName(planetcadastro);
+        String planetapi = planetresp.getResults().get(0).getName().toUpperCase();
 
+        if (planetresp.getResults().isEmpty() || !planetcadastro.equals(planetapi)){
+            planets.setAppears(0);
+            planetDTO.setAppears(0);
+        } else {
+            planets.setAppears(planetresp.getResults().get(0).getFilms().size());
+            planetDTO.setAppears(planets.getAppears());
+        }
+        
         planetRepository.save(planets);
-
         return planetDTO;
     }
 

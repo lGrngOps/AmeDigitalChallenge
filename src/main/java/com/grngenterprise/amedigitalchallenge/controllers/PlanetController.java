@@ -1,9 +1,8 @@
 package com.grngenterprise.amedigitalchallenge.controllers;
 
 import com.grngenterprise.amedigitalchallenge.entities.Planets;
-import com.grngenterprise.amedigitalchallenge.feign.PlanetFeign;
-import com.grngenterprise.amedigitalchallenge.models.PlanetDTO;
 import com.grngenterprise.amedigitalchallenge.models.APIResponse;
+import com.grngenterprise.amedigitalchallenge.models.PlanetDTO;
 import com.grngenterprise.amedigitalchallenge.services.PlanetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +16,6 @@ public class PlanetController {
 
     @Autowired
     private PlanetService planetService;
-
-    @Autowired
-    private PlanetFeign planetFeign;
 
     @GetMapping(value = "api")
     public APIResponse findAll(){

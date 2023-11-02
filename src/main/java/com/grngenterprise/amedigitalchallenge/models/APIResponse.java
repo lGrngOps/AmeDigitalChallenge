@@ -14,4 +14,3 @@ public class APIResponse {
     private List<PlanetResponse> results;
 
 }
-

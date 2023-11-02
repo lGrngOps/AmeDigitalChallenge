@@ -16,6 +16,6 @@ public class Planets {
     private String name;
     private String climate;
     private String terrain;
-    //private Integer appears;
+    private Integer appears;
 
 }
