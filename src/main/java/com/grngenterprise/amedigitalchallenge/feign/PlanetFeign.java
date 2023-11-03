@@ -1,6 +1,7 @@
 package com.grngenterprise.amedigitalchallenge.feign;
 
 import com.grngenterprise.amedigitalchallenge.models.APIResponse;
+import jakarta.validation.Valid;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +16,6 @@ public interface PlanetFeign {
     APIResponse findAll();
 
     @GetMapping("/?search={planet}")
-    APIResponse findPlanetByName(@RequestParam(name = "planet")String planet);
+    APIResponse findPlanetByName(@Valid @RequestParam(name = "planet")String planet);
 
 }

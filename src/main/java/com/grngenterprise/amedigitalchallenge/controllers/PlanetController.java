@@ -4,6 +4,7 @@ import com.grngenterprise.amedigitalchallenge.entities.Planets;
 import com.grngenterprise.amedigitalchallenge.models.APIResponse;
 import com.grngenterprise.amedigitalchallenge.models.PlanetDTO;
 import com.grngenterprise.amedigitalchallenge.services.PlanetService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +29,7 @@ public class PlanetController {
     }
 
     @PostMapping(value = "create")
-    public PlanetDTO createPlanets (@RequestBody PlanetDTO planetDTO){
+    public PlanetDTO createPlanets (@Valid @RequestBody PlanetDTO planetDTO) {
         return planetService.createPlanet(planetDTO);
     }
 

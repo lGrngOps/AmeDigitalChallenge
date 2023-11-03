@@ -36,16 +36,17 @@ public class PlanetService {
 
         String planetcadastro = planetDTO.getName().toUpperCase();
         APIResponse planetresp = planetFeign.findPlanetByName(planetcadastro);
-        String planetapi = planetresp.getResults().get(0).getName().toUpperCase();
 
-        if (planetresp.getResults().isEmpty() || !planetcadastro.equals(planetapi)){
+        if (planetresp.getResults().isEmpty()){
+            planets.setAppears(0);
+            planetDTO.setAppears(0);
+        } else if (!planetcadastro.equals(planetresp.getResults().get(0).getName().toUpperCase())){
             planets.setAppears(0);
             planetDTO.setAppears(0);
         } else {
             planets.setAppears(planetresp.getResults().get(0).getFilms().size());
             planetDTO.setAppears(planets.getAppears());
         }
-        
         planetRepository.save(planets);
         return planetDTO;
     }
